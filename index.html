@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vue.js demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  </head>
+  <body>
+    <div id="app">
+      {{ mensaje }}
+    </div>
+
+    <script>
+      // IIFE
+      (function() {
+        var app = new Vue({
+          el: '#app',
+          data: {
+            mensaje: 'Hola Juan Carlos'
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
