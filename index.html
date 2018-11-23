@@ -7,7 +7,11 @@
   </head>
   <body>
     <div id="app">
-      {{ mensaje }}
+      <div class="b-project" v-for="project in projects">
+        {{ project.title }}
+        <hr>
+        {{ project.description }}
+      </div>
     </div>
 
     <script>
@@ -16,7 +20,16 @@
         var app = new Vue({
           el: '#app',
           data: {
-            mensaje: 'Hola Juan Carlos'
+            projects:[
+              {
+                title: 'Trabajando con Vue.js',
+                description: 'Es un prjecto desarrollado en vuejs.'
+              },
+              {
+                title: 'Trabajando con Ruby on Rails',
+                description: 'Este es el proyecto mas importante, realizado en Ruby on Rails.'
+              }
+            ]
           }
         });
       })();
