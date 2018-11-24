@@ -4,15 +4,38 @@
     <meta charset="utf-8">
     <title>Vue.js demo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spinkit/1.2.5/spinkit.min.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
   </head>
   <body>
-    <div id="app">
-      <div class="b-project" v-for="project in projects">
-        {{ project.title }}
-        <hr>
-        {{ project.description }}
+    <div id="app" v-cloak>
+      <div class="b-project-list">
+        <h2>Proyectos</h2>
+        <div class="sk-cube-grid" v-if="projects.length === 0">
+          <div class="sk-cube sk-cube1"></div>
+          <div class="sk-cube sk-cube2"></div>
+          <div class="sk-cube sk-cube3"></div>
+          <div class="sk-cube sk-cube4"></div>
+          <div class="sk-cube sk-cube5"></div>
+          <div class="sk-cube sk-cube6"></div>
+          <div class="sk-cube sk-cube7"></div>
+          <div class="sk-cube sk-cube8"></div>
+          <div class="sk-cube sk-cube9"></div>
+        </div>
+        <div class="b-project" v-for="project in projects">
+          <h3 class="b-project__title">{{ project.title }}</h3>
+          <div class="b-project__description">
+            {{ project.description }}
+          </div>
+          <div class="b-project__created-at">
+            {{ project.created_at | formatDate('DD MMM YYYY') }}
+          </div>
+          <div class="b-project__actions">
+            <a href="#" class="btn btn-danger" v-on:click="deleteProject(project)">Eliminar proyecto</a>
+          </div>
+        </div>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -25,8 +48,15 @@
             projects:[
             ]
           },
+          methods: {
+            deleteProject: function(project) {
+              console.warn("Eliminar project", project)
+            }
+          },
           filters:{
-
+            formatDate: function(date, outputFormat){
+              return moment(date).format(outputFormat);
+            }
           },
           mounted: function() {
             console.log('1234')
@@ -49,7 +79,7 @@
             });
           }
         });
-      })(window.Vue, window.axios);
+      })(window.Vue, window.axios, window.moment);
     </script>
   </body>
 </html>
