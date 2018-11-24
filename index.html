@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>Vue.js demo</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
   </head>
   <body>
     <div id="app">
@@ -13,7 +15,7 @@
         {{ project.description }}
       </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>
       // IIFE
       (function() {
@@ -21,18 +23,33 @@
           el: '#app',
           data: {
             projects:[
-              {
-                title: 'Trabajando con Vue.js',
-                description: 'Es un prjecto desarrollado en vuejs.'
-              },
-              {
-                title: 'Trabajando con Ruby on Rails',
-                description: 'Este es el proyecto mas importante, realizado en Ruby on Rails.'
-              }
             ]
+          },
+          filters:{
+
+          },
+          mounted: function() {
+            console.log('1234')
+            var serverURL = 'http://172.104.91.187/projects'
+            var _this = this;
+
+            var configAxios= {
+              url: serverURL,
+              method: 'get',
+              responserType: 'json',
+              data: {},
+              headers: {
+                'Content-Type': 'application/json',
+                'Api-Token': 'jJHGtk3IoZ84CmKlDz5N206w46yaj6v4mk0vXdTDl5w80iqnk0skp9Jp6NQ3'
+              }
+            };
+            axios.request(configAxios).then(function(response){
+              console.log(response);
+              _this.projects = response.data;
+            });
           }
         });
-      })();
+      })(window.Vue, window.axios);
     </script>
   </body>
 </html>
